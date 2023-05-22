@@ -1,0 +1,16 @@
+
+.contestant-img img {
+  width: 13em;
+height: 13em;
+border-radius: 50%;
+vertical-align: middle;
+
+  float: left;
+  margin-right: 5%;
+  margin-bottom: 3%;
+}
+
+.h5
+{
+  color: rgb(215, 243, 6);
+}

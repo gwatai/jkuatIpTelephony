@@ -1,0 +1,14 @@
+.contestant-cand-img img {
+    width: 10em;
+  height: 10em;
+  border-radius: 50%;
+  vertical-align: middle;
+  
+    float: left;
+    margin-right: 5%;
+    margin-bottom: 3%;
+  }
+
+  /* input[type=submit] {
+     margin-top: 25px;
+  } */

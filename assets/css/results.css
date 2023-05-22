@@ -1,0 +1,44 @@
+.containermy{
+
+  
+  max-height:100vh;
+  max-width:100vh;
+  margin: auto;
+  margin-top: 5%;
+
+  border-radius: 1.5em;
+}
+
+.vertical-center {
+  margin-left: 40%;
+ 
+  width: 100px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.contain2{
+
+  /* padding:0vh; */
+  border: 5px solid aqua;
+  border-radius: 1.5em;
+
+}
+
+
+
+.imglogo img{
+  width: 40%;
+  height: 40%;
+  margin-left:30%;
+  margin-top: 6%;
+  margin-bottom: 10%;
+}
+.container
+{
+  margin-left: 0px;
+  margin-top: 20px;
+}
+.btn-primary{
+  color: #fff;
+  background-color: #fff;
+}
