@@ -4,44 +4,25 @@
         <div class="sidebar-content">
           <div class="user">
             <div class="avatar-sm float-left mr-2">
-              <img src="<?php echo base_url()?>assets/img/logo.jpeg" alt="..." class="avatar-img rounded-circle">
+              <img src="<?php echo base_url()?>assets/pictures/person.jpeg" alt="..." class="avatar-img rounded-circle">
             </div>
             <div class="info">
               <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                 <span>
                 Admin
-                  <span class="user-level">Administrator</span>
-                  <span class="caret"></span>
+                  <span class="user-level"><?php echo $_SESSION['admin_type']; ?></span>  
+                  <!-- <span class="caret"></span> -->
                 </span>
               </a>
               <div class="clearfix"></div>
 
-              <div class="collapse in" id="collapseExample">
-                <ul class="nav">
-                  <li>
-                    <a href="#profile">
-                      <span class="link-collapse">My Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#edit">
-                      <span class="link-collapse">Edit Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#settings">
-                      <span class="link-collapse">Settings</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
           <ul class="nav nav-primary">
-            <li class="nav-item active">
-              <a  href="<?php echo base_url()?>dashboard/dash" class="collapsed" aria-expanded="false">
+            <li class="nav-item active" >
+              <a  href="<?php echo base_url()?>dashboard/dash" class="collapsed" style="background: green;" aria-expanded="false">
                 <i class="fas fa-home"></i>
-                <p>Dashboard</p>
+                <p >Dashboard</p>
                 <!-- <i class="caret"></i> -->
               </a>
               <div class="collapse" id="dashboard">
@@ -68,6 +49,11 @@
                       <span class="sub-item">Manage Admins</span>
                     </a>
                   </li>
+                  <li>
+                    <a href="<?php echo base_url()?>dashboard/manage_departments">
+                      <span class="sub-item">Manage Departments</span>
+                    </a>
+                  </li>
                 
                   <li>
                 </ul>
@@ -75,9 +61,9 @@
             </li> 
            
               
-            <li class="mx-4 mt-2">
-              <a href="<?php echo base_url()?>auth/logout" class="btn btn-primary btn-block"><span class="btn-label mr-2"> <i class="fa-solid fa-power-off"></i></span>Log out</a> 
-            </li>
+            <!-- <li class="mx-4 mt-2">
+              <a href="<?php //echo base_url()?>auth/logout" class="btn btn-primary btn-block"><span class="btn-label mr-2"> <i class="fa-solid fa-power-off"></i></span>Log out</a> 
+            </li> -->
           </ul>
         </div>
       </div>

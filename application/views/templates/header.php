@@ -24,14 +24,11 @@
   <link rel="stylesheet" href="<?php echo base_url()?>assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url()?>assets/css/atlantis.min.css">
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link rel="stylesheet"  href="<?php echo base_url()?>assets/css/results.css">
-  <link rel="stylesheet"  href="<?php echo base_url()?>assets/css/awards-css.css">
-  <link rel="stylesheet"  href="<?php echo base_url()?>assets/css/candidates.css">
   <link rel="stylesheet" href="<?php echo base_url()?>assets/css/demo.css">
   <link rel="stylesheet" href="<?php echo base_url()?>assets/css/style.css">
   <script src="<?php  echo base_url()?>assets/js/jquery.min.js"></script>
   <script src="<?php  echo base_url()?>assets/js/sweetalert.min.js"></script>
-  
+  <script src="<?php echo base_url()?>assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
 </head>
 
 <body>

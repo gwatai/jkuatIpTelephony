@@ -1,3 +1,5 @@
+
+<script src="<?php  echo base_url()?>assets/js/telephony_admin.js"></script>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -16,8 +18,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Extension's Department</th>
                                 <th>Extension's Campus</th>
+                                <th>Extension's Department</th>                              
                                 <th>Extension's Number</th>
                                 <th>Owner Assigned</th>
                                 <th>Edit</th>
@@ -27,22 +29,21 @@
                         <tfoot>
                             <tr>
                                 <th>#</th>
-                                <th>Extension's Department</th>
                                 <th>Extension's Campus</th>
+                                <th>Extension's Department</th>                                
                                 <th>Extension's Number</th>
                                 <th>Owner Assigned</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                         </tfoot>
-                        <tbody>
+                        <tbody id ="tbody">
                             <?php
                             $i = 1;
                             $t = 0;
                             foreach ($extensions as $key => $value) { ?>
                                 <tr>
-                                    <td><?php echo $value->id; ?></td>
-                                    <td><?php echo $value->deptname; ?></td>
+                                    <td><?php echo $value->id; ?></td>                                  
                                     <td><?php
                                         foreach ($campuses as $key => $campus_value) {
                                             if ($value->ccode == $campus_value->ccode) {
@@ -50,9 +51,8 @@
                                                 break;
                                             }
                                         }
-
-
                                         ?></td>
+                                    <td><?php echo $value->deptname; ?></td>
                                     <td><?php echo $value->extnumber; ?></td>
                                     <td><?php echo $value->owerassigned; ?></td>
                                     <td>
@@ -71,7 +71,7 @@
                             ?>
                         </tbody>
                     </table>
-                    <p class="links" >
+                    <p class="links" id="links">
   
   <?php echo $links; ?></p>
                 </div>

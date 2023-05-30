@@ -1,5 +1,4 @@
 <div class="container" style="padding-top: 20px">
-    <h3>Add New Admin</h3>
     <div class="row">
         <form method="post" name="create_extension" action="<?php current_url(); ?>">
             <div class="col-md-12">
@@ -64,11 +63,10 @@
                     <?php echo form_error('secret')
                     ?>
                 </div>
-                <div class="form-group-A" style="padding-top: 20px">
-                    <button class="btn btn-primary" type="submit">Create</button>
+                <div class="form-group-A" style="padding-top: 20px"> 
+                <button class="btn btn-primary niko" type="submit">Create</button>
                 </div>
-
-
+               
             </div>
         </form>
     </div>

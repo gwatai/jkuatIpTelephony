@@ -18,7 +18,7 @@ class Public_dash extends CI_Controller
 		$data['campuses'] = $this->extensions_m->get_campuses();
 		$this->load->view('templates/header',$data);
 		 
-		//$this->load->view('templates/header_menu',$data);
+		$this->load->view('templates/header_menu_v2',$data);
 		$this->load->view('telephony', $data);
 		$this->load->view('templates/footer',$data);
 	}
@@ -50,9 +50,11 @@ class Public_dash extends CI_Controller
 	}
 	public function test_join()
     {
-        // $data = $this->extensions_m->test_join();
+		echo "<pre>";
+        $data = $this->extensions_m->test_join();
        
-		echo current_url().'/departments';
+		 print_r($data);
+		// echo current_url().'/departments';
     }
 
 	public function get_campuses_depart()

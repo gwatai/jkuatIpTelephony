@@ -11,6 +11,23 @@ class extensions_m extends CI_Model
        return  $this->db->get('campuses')->result(); 
 
     }
+
+    function search_extension_by_campus($data)
+    {
+     $this->db->select('c.cname,t.deptname,t.owerassigned,t.extnumber,t.id');
+     $this->db->from('campuses as c');
+     $this->db->join('trialexcel as t','c.ccode = t.ccode');
+     $this->db->like('c.cname',$data);
+     $this->db->or_like('t.deptname', $data);
+     $this->db->or_like('t.owerassigned', $data);
+     $this->db->or_like('t.extnumber', $data);
+     //$this->db->limit($limit,$start);
+     $query = $this->db->get();
+ 
+     return $query->result();
+     
+ 
+    }
     function get_campuses_code($campus_name)
     {
         return $this->db->select('ccode')->where('cname',$campus_name)->get('campuses')->row_array();
@@ -28,19 +45,35 @@ class extensions_m extends CI_Model
     {
         return $this->db->insert('trialexcel',$data);
     }
-    function get_extensions($limit,$start,$data)
+    function get_extensions($limit,$start)
     {
-        if(isset($data) && !empty($data))
-        {
-            $this->search_extensions($data);
-        }
         return $this->db->limit($limit,$start)->get("trialexcel")->result();
     }
-    
-   function search_extensions($data)
-   {
-    return $this->db->like($data)->get('trialexcel')->result();
-   }
+
+    function get_extensions_by_search($data)
+    {
+        if($this->search_extension_by_campus($data))
+        {
+            return $this->search_extension_by_campus($data);
+
+        }
+        else 
+        return FALSE;
+    }
+
+
+   function test_join()
+    {
+        $this->db->select('c.cname,t.deptname,t.owerassigned,t.extnumber');
+		$this->db->from('campuses as c');
+		$this->db->join('trialexcel as t','c.ccode = t.ccode');
+        $this->db->like('c.cname','karen');
+        $this->db->or_like('c.cname', 'main');
+        $this->db->limit(10,0);
+		$query = $this->db->get();
+
+		return $query->result();
+    }
     function get_ext($id,$table)
     {
         return $this->db->where('id',$id)->get($table)->row_array();
@@ -84,14 +117,7 @@ class extensions_m extends CI_Model
     {
      //   $this->db->where('ccname',$campus_name)->get('campuses')->
     }
-    function test_join()
-    {
-        $this->db->select('*');
-		$this->db->from('campuses');
-		$this->db->join('trialexcel','trialexcel.ccode = campuses.ccode');
-		$query = $this->db->get();
-		return $query;
-    }
+    
 
       function get_count() {
         return $this->db->count_all('trialexcel');
@@ -99,7 +125,7 @@ class extensions_m extends CI_Model
 
       function search_extension($ext_number)
     {
-      return $this->db->select('extnumber,owerassigned,deptname')->like('extnumber',$ext_number)->get('trialexcel')->result();
+      return $this->db->select('extnumber,owerassigned,deptname')->like('extnumber',$ext_number)->or_like('owerassigned',$ext_number)->or_like('deptname',$ext_number)->get('trialexcel')->result();
     }
 
     function get_admins()
@@ -114,7 +140,7 @@ class extensions_m extends CI_Model
     }
     function get_admins_sens($email)
     {
-        $this->db->where('email',$email)->get('telephoneadmin')->result();
+       return $this->db->where('email',$email)->get('telephoneadmin')->result();
     }
     function get_edit_admins($id)
     {

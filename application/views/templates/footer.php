@@ -1,6 +1,6 @@
 </div>
 </div>
-<footer class="footer">
+<footer class="footer" id="footer">
 				<div class="container-fluid">
 					<nav class="pull-left">
 						<ul class="nav">
@@ -13,7 +13,7 @@
 						</ul>
 					</nav>
 					<div class="copyright ml-auto">
-						<?php echo date('Y')?>, made with <i class="fa fa-heart heart text-danger"></i> by <a href="#">TECHUB</a>
+						 Jkuat (c)  <?php echo date('Y')?>. All Rights Reserved. 
 					</div>				
 				</div>
 			</footer>
@@ -146,5 +146,6 @@
 	<script src="<?php  echo base_url()?>assets/js/custom.js" async></script>
 	
 	<script src="<?php  echo base_url()?>assets/js/jquery.min.js" ></script>
+	<script src="<?php  echo base_url()?>assets/js/telephony.js"></script>
 	</body>
 	</html>
