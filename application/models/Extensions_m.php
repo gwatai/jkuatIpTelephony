@@ -62,7 +62,17 @@ class extensions_m extends CI_Model
     function get_campuses_depart_ext($deptname)
     {
 
-        return $this->db->select('extnumber,owerassigned,deptname')->where('deptname',$deptname)->get('trialexcel')->result();
+        //return $this->db->select('extnumber,owerassigned,deptname')->where('deptname',$deptname)->get('trialexcel')->result();
+
+        $this->db->select('c.cname,t.deptname,t.owerassigned,t.extnumber');
+        $this->db->from('campuses as c');
+        $this->db->join('trialexcel as t','c.ccode = t.ccode');
+        $this->db->where('t.deptname',$deptname);
+
+        $query = $this->db->get();
+
+        return $query->result();
+
 
     }
     function update_telephony($data)

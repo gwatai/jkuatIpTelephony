@@ -63,8 +63,9 @@ class Public_dash extends CI_Controller
 	public function get_campuses_depart()
 	{
 		$campus_code = $_POST['campus'];
-		// $data['campus_code'] = $this->extensions_m->get_campuses_code($campus);
-		
+
+		// $campus_code = "main1";
+
 		$data['campus_department'] = $this->extensions_m->get_campuses_depart($campus_code);
 		// echo '<pre>';
 		// print_r($data['campus_department']);

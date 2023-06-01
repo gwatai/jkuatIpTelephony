@@ -10,8 +10,6 @@
 
                         <form action="<?php echo current_url(); ?>" method="post" id="tel">
                             <div class="form-group">
-                                <?php //echo current_url().'departments'; 
-                                ?>
                                 <label for="camp">Campus</label>
                                 <select name="campus" id="camp" class="form-control">
                                     <option selected disabled>select campus</option>
@@ -33,11 +31,32 @@
                                 <label for="search">Search extension</label>
                                 <input type="text" name="code" class="form-control" id="search">
                             </div>
-
                         </form>
+                        <div class="table-responsive">
+                            <table id="basic-datatables" class="display table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Extension's Campus</th>
+                                        <th>Extension's Department</th>
+                                        <th>Extension's Number</th>
+                                        <th>Owner Assigned</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Extension's Campus</th>
+                                        <th>Extension's Department</th>
+                                        <th>Extension's Number</th>
+                                        <th>Owner Assigned</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody id="tbody">
 
-                        <div class="form-group" id="ext">
-                            <label for="ext">Extensions</label>
+                                </tbody>
+
+                            </table>
 
                         </div>
 
@@ -53,6 +72,41 @@
 <script src="<?php echo base_url() ?>assets/js/telephony.js"></script>
 <script>
     $(document).ready(function() {
+        $("#search").on("input", function() {
+
+            var searchExt = $(this).val().trim();
+            if (searchExt !== '') {
+                $.ajax({
+                    url: '<?php echo base_url('public_dash/search'); ?>',
+                    type: 'POST',
+                    data: {
+                        ext: searchExt
+                    },
+                    success: function(data) {
+                        console.log(data);
+
+                        var table_data = "";
+
+                        $.each(data, function(i, val) {
+                            table_data += "<tr>";
+                            table_data += "<td>" + (i + 1) + "</td>";
+                            table_data += "<td>" + val.cname + "</td>";
+                            table_data += "<td>" + val.deptname + "</td>";
+                            table_data += "<td>" + val.extnumber + "</td>";
+                            table_data += "<td>" + val.owerassigned + "</td>";
+                            table_data += "</tr>";
+
+
+                        });
+
+                        $('#tbody').html(table_data);
+
+                    }
+
+                });
+            }
+        });
+
 
 
         $("#tel").on("submit", function(e) {
@@ -70,26 +124,19 @@
                         campus: selectedCampus
                     },
                     success: function(data) {
-                        // console.log(data);
-                        $('#depart').empty();
-                        $('#ext').empty();
-                        // const options = JSON.parse(data);
-                        // console.log(options);
-                        $('#depart').append($('<option>', {
-                            text: "select department",
-                            class: 'selected'
-                        }));
+                        console.log(data);
+
+                        var options = "";
                         $.each(data, function(i, val) {
 
-                            // Create a new option element and append it to the select element
-                            $('#depart').append($('<option>', {
-                                value: val,
-                                text: val
-                            }));
-                            // console.log(i + ":" + val);
+                            options += "<option>" + val + "</option>";
 
 
                         });
+
+                        $('#depart').html(options);
+
+                        $('#depart').prepend("<option selected>Select Department</option>");
 
                     }
 
@@ -112,17 +159,23 @@
                         depart: selectedDepart
                     },
                     success: function(data2) {
-                        $('#ext').empty();
-                        // const options2 = JSON.parse(data2);
-                        // console.log(options2);
 
+                        console.log(data2);
+
+                        var table_data = "";
                         $.each(data2, function(i, val) {
+                            table_data += "<tr>";
+                            table_data += "<td>" + (i + 1) + "</td>";
+                            table_data += "<td>" + val.cname + "</td>";
+                            table_data += "<td>" + val.deptname + "</td>";
+                            table_data += "<td>" + val.extnumber + "</td>";
+                            table_data += "<td>" + val.owerassigned + "</td>";
+                            table_data += "</tr>";
 
-                            $('#ext').append($('<p>', {
-                                text: "Extension number: " + val.extnumber + " Department: " + val.deptname + " Assigned: " + val.owerassigned,
-                            }));
-                            console.log("Extension number: " + val.extnumber + " Department: " + val.deptname + " Assigned: " + " Assigned" + val.owerassigned);
+
                         });
+
+                        $('#tbody').html(table_data);
 
                     }
                 });
@@ -130,39 +183,5 @@
             }
 
         });
-
-        $("#search").on("input", function() {
-
-            var searchExt = $(this).val();
-            if (searchExt !== "") {
-                $.ajax({
-                    url: '<?php echo base_url('public_dash/search'); ?>',
-                    type: 'POST',
-                    data: {
-                        ext: searchExt
-                    },
-                    success: function(data) {
-                        console.log(data);
-
-                        $('#ext').empty();
-                     
-                        $.each(data, function(i, val) {
-
-                            // $('#ext').append($('<p>', {
-                            //     text: "Campus: " + val.cname + " Extension number: " + val.extnumber + " Department: " + val.deptname + " Assigned: " + val.owerassigned,
-                            // }));
-
-                            var 
-
-                    
-                        });
-
-
-                    }
-
-                });
-            }
-        });
-
     });
 </script>
