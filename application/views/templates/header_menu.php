@@ -51,17 +51,16 @@
                   success: function(data) {
 
                     console.log(data);
-
                     console.log(data.length);
 
-                    for (var h = 0; h < data.extensions.length; h++) {
-                      console.log(data.extensions[h]);
-                    }
+                    // for (var h = 0; h < data.extensions.length; h++) {
+                    //   console.log(data.extensions[h]);
+                    // }
 
                     var table_data = "";
                     var links = "";
                     var j = 0;
-                    // var data = JSON.parse(dat);
+  
                     // console.log(dat);
                     $.each(data.extensions, function(i, obj) {
                       //links = val.

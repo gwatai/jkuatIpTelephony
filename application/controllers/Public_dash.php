@@ -26,6 +26,9 @@ class Public_dash extends CI_Controller
 	public function search() //$ext_number= "100"
 	{
 		$ext_number = $_POST['ext'];
+
+		// $ext_number =  "main";
+		
 		$data['ext'] = $this->extensions_m->search_extension($ext_number);
 
 		
