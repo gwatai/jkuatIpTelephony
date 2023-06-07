@@ -1,3 +1,8 @@
+
+<script type="text/javascript">
+     var theme = "<?php echo $_SESSION['theme']; ?>";
+  </script>
+
 <div class="main-header">
   <!-- Logo Header -->
   <div class="logo-header" data-background-color="green">
@@ -49,27 +54,14 @@
                     search: searchData
                   },
                   success: function(data) {
-
-                    console.log(data);
-                    console.log(data.length);
-
-                    // for (var h = 0; h < data.extensions.length; h++) {
-                    //   console.log(data.extensions[h]);
-                    // }
-
+                   
                     var table_data = "";
                     var links = "";
                     var j = 0;
-  
-                    // console.log(dat);
+
                     $.each(data.extensions, function(i, obj) {
                       //links = val.
                       table_data += "<tr>";
-                      // table_data += "<td>" + (j += 1) + "</td>";
-                      // console.log(obj);
-                      // table_data += "<td>" + i.obj + "</td>";
-                      // table_data += "</td>";
-
                       table_data += "<td>" + obj.id + "</td>";
                       table_data += "<td>" + obj.cname + "</td>";
                       table_data += "<td>" + obj.deptname + "</td>";
@@ -79,19 +71,18 @@
                       ?>
                       //var id = 
                       var href_edit = '<?php echo base_url() . "dashboard/edit_extension/" ?>' + obj.id;
+                      //id="del" data-id="<?php //echo $value->id; 
+                                          ?>"
                       var href_delete = '<?php echo base_url() . "dashboard/delete_extension/" ?>' + obj.id;
                       // console.log(href_edit);
                       table_data += "<td>";
 
-                      table_data += "<a href=" + href_edit + " class='btn btn-primary btn-sm'>Edit</a>"
+                      table_data += "<a href=" + href_edit + " class='btn btn-primary btn-sm'>Edit</a>";
                       table_data += "</td>";
                       table_data += "<td>";
-                      table_data += "<a href=" + href_delete + " class='btn btn-danger btn-sm'>Delete</a>"
+                      table_data += "<button class='btn btn-danger btn-sm' onclick='check("+obj.id+")' id='del' data-id=" + obj.id + ">Delete</button>";
 
                       table_data += "</tr>";
-                      // console.log(table_data);
-
-                      //  table_data += row_data;
                     });
 
                     $('#tbody').html(table_data);
@@ -104,7 +95,7 @@
 
               });
 
-            });
+          });
           </script>
 
         </form>
@@ -116,15 +107,12 @@
           </a>
         </li>
         <li class="nav-item dropdown">
-          <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">  
+          <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
             <div class="avatar-sm">
-              <!-- <img src="<?php //echo base_url() ?>assets/img/logo.jpeg" alt="..." class="avatar-img rounded-circle"> -->
-              <!-- <i class="fa fa-sort-desc" aria-hidden="true"></i> -->
-              
             </div>
             Admin
           </a>
-          <ul class="dropdown-menu dropdown-user animated fadeIn">           
+          <ul class="dropdown-menu dropdown-user animated fadeIn">
             <div class="dropdown-user-scroll scrollbar-outer">
               <li>
                 <div class="dropdown-divider"></div>

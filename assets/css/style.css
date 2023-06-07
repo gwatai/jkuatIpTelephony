@@ -95,3 +95,19 @@ div#div_navigation {
     /* color: #009ED5; */
     color: #4CA64C;
 }
+#public_search
+{
+   display: block;
+   width: auto;
+}
+#tel
+{
+   clear: none;
+   width: 20%;
+   margin: 1px;
+}
+#table_search_ext
+{
+    clear: none;
+    width: 70%;
+}

@@ -5,10 +5,13 @@ class Dashboard extends CI_Controller
 {
 
 
+    public  $data;
+
     public function __construct()
     {
         parent::__construct();
-        $this->data['page_title'] = 'Dashboard';
+        $data['page_title'] = 'Dashboard';
+        $this->data['base_url'] =  base_url();
 
         $this->load->model('extensions_m');
         $this->load->library('pagination');
@@ -35,60 +38,51 @@ class Dashboard extends CI_Controller
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
-        $data["links"] = $this->pagination->create_links();
+        $this->data["links"] = $this->pagination->create_links();
 
-        $data['title'] = "manage extensions";
+        $this->data['title'] = "Manage extensions";
 
-        $data['extensions'] = $this->extensions_m->get_extensions($config['per_page'], $page, null);
+        $this->data['extensions'] = $this->extensions_m->get_extensions($config['per_page'], $page, null);
 
-        $data['campuses'] = $this->extensions_m->get_campuses();
+        $this->data['campuses'] = $this->extensions_m->get_campuses();
 
+    
         // echo "<pre>";
-        // print_r($data);
+        // print_r($this->data);
         // die();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/header_menu', $data);
-        $this->load->view('templates/side_menubar', $data);
-        $this->load->view('templates/manage_extensions', $data);
-        $this->load->view('templates/footer', $data);
+        $this->load->view('templates/header', $this->data);
+        $this->load->view('templates/header_menu', $this->data);
+        $this->load->view('templates/side_menubar', $this->data);
+        $this->load->view('templates/manage_extensions', $this->data);
+        $this->load->view('templates/footer', $this->data);
     }
 
 
    
     public function search_extensions()
     {
-       // $config['base_url'] = base_url() . 'dashboard/search_extensions';
-
-        // $config['per_page'] = 20;
-        //$config["uri_segment"] = 3;
-
-     //   $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
-        $data["links"] = $this->pagination->create_links();
-
+       
+        
         $data['title'] = "search extensions";
 
         $data['search'] =  $_POST['search'];
-        // $data['search'] =  'Main';
-
-        //$data['extensions'] = $this->extensions_m->get_extensions_by_search($config['per_page'], $page, $data['search']);
-
+      
         $data['extensions'] = $this->extensions_m->get_extensions_by_search($data['search']);
 
-        // $config['per_page'] = count($data['extensions']);
-        // $config['total_rows'] = count($data['extensions']);
-
-        // $this->pagination->initialize($config);
-        // echo "<pre>";
-        // print_r($data['extensions']);
 
         header('Content-Type: application/json');
-        //  echo "<pre>";
+
         echo json_encode($data);
 
-
     }
+
+    public function get_new_extension_departments()
+        {
+            
+            //$selected_campus = $_POST['']
+
+        }
 
     public function manage_admins()
     {
@@ -215,8 +209,11 @@ class Dashboard extends CI_Controller
     {
         $data['title'] = "create new extensions";
 
-        $data['departments'] = $this->extensions_m->get_departments();
+       
         $data['campuses'] = $this->extensions_m->get_campuses();
+
+        // add jquery to fetch selected campus 
+        //f$data['departments'] = $this->extensions_m->get_new_extension_departments();
 
         $this->form_validation->set_rules('department', 'department', 'required');
         $this->form_validation->set_rules('campus', 'campus', 'required');
@@ -225,6 +222,7 @@ class Dashboard extends CI_Controller
 
 
         if ($this->form_validation->run() ===  TRUE) {
+
             if ($this->input->post()) {
                 $data = [
                     'deptname' => $this->input->post('department'),
@@ -245,6 +243,8 @@ class Dashboard extends CI_Controller
             $this->load->view('templates/footer', $data);
         }
     }
+
+    
     public function edit_extension($id)
     {
         $data['title'] = "Edit Extension";
@@ -333,11 +333,17 @@ class Dashboard extends CI_Controller
             $this->load->view('templates/footer', $data);
         }
     }
-    public function delete_extension($id)
+    public function delete_extension()
     {
-        if ($this->extensions_m->delete($id)) {
-            redirect('dashboard/dash', 'refresh');
+        $extension_id = $_POST['extension_id'];
+
+        if ($this->extensions_m->delete($extension_id)) {
+            //redirect('dashboard/dash', 'refresh');
+            echo json_encode('True');
         }
+
+       // echo json_encode('True');
+
     }
 
   

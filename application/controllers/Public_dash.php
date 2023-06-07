@@ -5,6 +5,8 @@ class Public_dash extends CI_Controller
 {
 
 
+	//public $data;
+	
 	public function __construct()
 	{
 		parent::__construct();
@@ -14,8 +16,10 @@ class Public_dash extends CI_Controller
 	}
 	public function index()
 	{
+		$data['base_url'] = base_url();
 		// $data = ""; 
 		$data['campuses'] = $this->extensions_m->get_campuses();
+
 		$this->load->view('templates/header',$data);
 		 
 		$this->load->view('templates/header_menu_v2',$data);
@@ -25,11 +29,11 @@ class Public_dash extends CI_Controller
 
 	public function search() //$ext_number= "100"
 	{
-		$ext_number = $_POST['ext'];
+		$extension = $_POST['ext'];
 
 		// $ext_number =  "main";
 		
-		$data['ext'] = $this->extensions_m->search_extension($ext_number);
+		$data['ext'] = $this->extensions_m->search_extension($extension);
 
 		
 		$jsonData = json_encode($data['ext'], JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES);
@@ -100,7 +104,8 @@ class Public_dash extends CI_Controller
 	public function get_campuses_depart_ext()
 	{
 		$department = $_POST['depart'];
-		$data['extensions'] = $this->extensions_m->get_campuses_depart_ext($department);
+		$campus = $_POST['campus'];
+		$data['extensions'] = $this->extensions_m->get_campuses_depart_ext($department,$campus);
 
 		$jsonData = json_encode($data['extensions'], JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES);
 

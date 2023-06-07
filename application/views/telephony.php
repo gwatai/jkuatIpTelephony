@@ -6,9 +6,11 @@
                 <div class="container" style="padding-top: 20px">
                     <h3 id="title_public">JKUAT ONLINE TELEPHONY DIRECTORY</h3>
                     <h2 style="color: blue">Search Extension to call:</h2>
-                    <div class="row">
+                    
+                    <div id="public_search" class="row">
 
                         <form action="<?php echo current_url(); ?>" method="post" id="tel">
+
                             <div class="form-group">
                                 <label for="camp">Campus</label>
                                 <select name="campus" id="camp" class="form-control">
@@ -32,7 +34,8 @@
                                 <input type="text" name="code" class="form-control" id="search">
                             </div>
                         </form>
-                        <div class="table-responsive">
+
+                        <div id="table_search_ext" class="table-responsive">
                             <table id="basic-datatables" class="display table table-striped table-hover">
                                 <thead>
                                     <tr>
@@ -70,12 +73,16 @@
 </div>
 
 <script src="<?php echo base_url() ?>assets/js/telephony.js"></script>
+
 <script>
     $(document).ready(function() {
         $("#search").on("input", function() {
 
             var searchExt = $(this).val().trim();
-            if (searchExt !== '') {
+
+            console.log(searchExt);
+
+            if (searchExt != ''  && searchExt.length !== 0 ) {
                 $.ajax({
                     url: '<?php echo base_url('public_dash/search'); ?>',
                     type: 'POST',
@@ -104,6 +111,10 @@
                     }
 
                 });
+            }
+            else
+            {
+                $( "#tbody" ).empty();
             }
         });
 
@@ -149,6 +160,7 @@
         $("#depart").change(function() {
 
             var selectedDepart = $(this).val();
+            var selectedCampus = $("#camp").val();
 
             if (selectedDepart !== "") {
                 $.ajax({
@@ -156,12 +168,13 @@
                     url: '<?php echo base_url('public_dash/get_campuses_depart_ext'); ?>',
                     type: 'POST',
                     data: {
-                        depart: selectedDepart
+
+                        depart: selectedDepart,
+                        campus: selectedCampus
+
                     },
                     success: function(data2) {
-
-                        console.log(data2);
-
+                        
                         var table_data = "";
                         $.each(data2, function(i, val) {
                             table_data += "<tr>";

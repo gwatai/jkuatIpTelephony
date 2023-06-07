@@ -4,11 +4,11 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="camp">Campus</label>
-                    <select name="campus" id="camp" class="form-control">
+                    <select name="campus" id="create_ext_camp" class="form-control">
                         <option selected disabled>select campus</option>
                         <?php foreach ($campuses as $key => $value) {
                         ?>
-                            <option value="<?php echo $value->ccode; ?>" <?php echo set_select('test_select', $value->ccode); ?>> <?php echo ($key + 1) . ' ' . $value->cname; ?></option>
+                            <option value="<?php echo $value->ccode; ?>" <?php echo set_select('test_select', $value->ccode); ?>> <?php echo $value->cname; ?></option>
 
                         <?php } ?>
                     </select>
@@ -20,17 +20,7 @@
                     <select name="department" id="depart" class="form-control">
                         <option selected disabled>select department</option>
                         <?php
-                        $array_list = [];
-                        foreach ($departments as $key => $value) {
-
-                            if (in_array($value->deptname, $array_list)) {
-                                continue;
-                            }
-                        ?>
-                            <option value="<?php echo $value->deptname; ?>" <?php echo set_select('campus', $value->deptname); ?>> <?php echo $value->deptname;
-                                                                                                                                    $array_list[] = $value->deptname;
-                                                                                                                                    ?></option>
-                        <?php } ?>
+                       // } ?>
                     </select>
                     <?php echo form_error('department')
                     ?>

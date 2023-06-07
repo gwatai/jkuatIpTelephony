@@ -1,4 +1,10 @@
- 
+$(document).ready(function ()
+{
+
+//var base_url = <?php //echo base_url(); ?>;
+
+console.log(base_url);
+
 //Notify
 
 $.notify({
@@ -13,3 +19,11 @@ $.notify({
 	},
 	time: 1000,
 });
+
+});
+
+function testing(data)
+{
+	alert(data);
+	console.log("working");
+}

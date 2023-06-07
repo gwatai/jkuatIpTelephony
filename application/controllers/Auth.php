@@ -12,7 +12,6 @@ class Auth extends CI_Controller
         $this->load->model('extensions_m');
         $this->load->library('form_validation');
         $this->load->library('encryption');
-
     }
     public function login()
     {
@@ -30,23 +29,18 @@ class Auth extends CI_Controller
                 //    echo "correct";         
                 {
                     $logged_in_sess = [
-                        // 'id' => $login['id'],
-                        // 'username' => $login['username'],
                         'admin_type' => $login['adminType'],
-                        'logged_in' => TRUE
+                        'logged_in' => TRUE,
+
 
                     ];
                     $this->session->set_userdata($logged_in_sess); // sets the session of the logged in user
-                    if($_SESSION['admin_type'] == 'Superadmin')
-                    {
-                    redirect('dashboard/dash','load');
+                    if ($_SESSION['admin_type'] == 'Superadmin') {
+                        $this->session->set_flashdata('theme', "admin");
+                        redirect('dashboard/dash', 'load');
+                    } else {
+                        redirect('dashboard/dash_lim', 'load');
                     }
-                    else
-                    {
-                        redirect('dashboard/dash_lim','load');
-                    }
-                    // echo $_SESSION['id'];
-
                 } else
 
                     echo "incorrect";
@@ -57,7 +51,7 @@ class Auth extends CI_Controller
             $this->load->view('login', $data = null);
         }
     }
-   
+
 
     public function hash_admin_pass()
     {
@@ -75,15 +69,15 @@ class Auth extends CI_Controller
         }
     }
     public function logout()
-	{
-		//$this->session->sess_destroy();
-		session_destroy();
-		redirect('auth/login', 'refresh');
-	}
+    {
+        //$this->session->sess_destroy();
+        session_destroy();
+        redirect('auth/login', 'refresh');
+    }
     public function key()
     {
         $key = bin2hex($this->encryption->create_key(16));
-        echo($key);
+        echo ($key);
         //print_r($key);
     }
 }
