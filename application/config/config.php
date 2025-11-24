@@ -29,8 +29,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://10.96.176.8/telephony/';   
-// $config['base_url'] = 'http://localhost/telephony/';   
-$config['base_url'] = 'https://telephony-jkuat.herokuapp.com/';
+$config['base_url'] = 'http://localhost/telephony/';   
+// $config['base_url'] = 'https://telephony-jkuat.herokuapp.com/';
 
 /*
 |--------------------------------------------------------------------------

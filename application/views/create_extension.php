@@ -18,17 +18,15 @@
                 <div class="form-group">
                     <label for="depart">Department</label>
                     <select name="department" id="depart" class="form-control">
-                        <option selected disabled>select department</option>
-                        <?php
-                       // } ?>
+                    <option selected disabled>select department</option>
                     </select>
                     <?php echo form_error('department')
                     ?>
                 </div>
                 <div class="form-group">
                     <label for="cod">Extension Number</label>
-                    <input type="text" name="code" id="cod" value="<?php echo set_value('code'); ?>" class="form-control">
-                    <?php echo form_error('code')
+                    <input type="number" name="ext_number" id="cod" value="<?php echo set_value('ext_number'); ?>" class="form-control">
+                    <?php echo form_error('ext_number')
                     ?>
                 </div>
                 <div class="form-group">

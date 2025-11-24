@@ -43,25 +43,7 @@ class extensions_m extends CI_Model
      return $query->result();
  
     }
-    function search_extension($data)
-    {
-      //return $this->db->select('extnumber,owerassigned,deptname')->like('extnumber',$ext_number)->or_like('owerassigned',$ext_number)->or_like('deptname',$ext_number)->get('trialexcel')->result();
-      $this->db->select('c.cname,t.deptname,t.owerassigned,t.extnumber');
-      $this->db->from('campuses as c');
-      $this->db->join('trialexcel as t','c.ccode = t.ccode');
-      $this->db->or_like('c.cname',$data);
-    //   $this->db->like('t.deptname',$data);
-    //   $this->db->like('t.owerassigned',$data);
-    //   $this->db->like('t.extnumber',$data);
-      $this->db->or_like('t.deptname', $data);
-      $this->db->or_like('t.owerassigned', $data);
-      $this->db->or_like('t.extnumber', $data);
-
-      $query = $this->db->get();
-
-      return $query->result();
-
-    }
+   
 
     function get_campuses_code($campus_name)
     {
@@ -73,7 +55,16 @@ class extensions_m extends CI_Model
     function get_campuses_depart($campus_code)
     {
 
-        return $this->db->select('deptname')->where('ccode',$campus_code)->get('trialexcel')->result();
+         $this->db->select('deptname');
+         $this->db->from('trialexcel');
+         $this->db->where('ccode',$campus_code);
+         $this->db->order_by('deptname', 'ASC');
+
+         $query = $this->db->get();
+         
+         return $query->result();
+
+       
 
     }
     function get_campuses_depart_ext($deptname,$campus)
@@ -86,6 +77,7 @@ class extensions_m extends CI_Model
         $this->db->join('trialexcel as t','c.ccode = t.ccode');
         $this->db->where('t.deptname',$deptname);
         $this->db->where('c.ccode',$campus);
+        
 
         $query = $this->db->get();
 
@@ -104,6 +96,41 @@ class extensions_m extends CI_Model
 
         return $this->db->limit($limit,$start)->get("trialexcel")->result();
 
+    }
+
+    function search_extension($data,$limit,$start)
+    {
+      $this->db->select('c.cname,t.deptname,t.owerassigned,t.extnumber');
+      $this->db->from('campuses as c');
+      $this->db->join('trialexcel as t','c.ccode = t.ccode');
+      $this->db->or_like('c.cname',$data);
+      $this->db->or_like('t.deptname', $data);
+      $this->db->or_like('t.owerassigned', $data);
+      $this->db->or_like('t.extnumber', $data);
+      $this->db->limit($limit,$start);
+
+      $query = $this->db->get();
+
+      return $query->result();
+
+    }
+
+    function count_search_results($data)
+    {
+        $this->db->select('c.cname,t.deptname,t.owerassigned,t.extnumber');
+        $this->db->from('campuses as c');
+        $this->db->join('trialexcel as t','c.ccode = t.ccode');
+        $this->db->or_like('c.cname',$data);
+        $this->db->or_like('t.deptname', $data);
+        $this->db->or_like('t.owerassigned', $data);
+        $this->db->or_like('t.extnumber', $data);
+
+       return $this->db->count_all_results();
+
+    }
+    function get_count() {
+
+        return $this->db->count_all('trialexcel');
     }
 
     function get_extensions_by_search($data)
@@ -190,10 +217,7 @@ class extensions_m extends CI_Model
     }
     
 
-    function get_count() {
-
-        return $this->db->count_all('trialexcel');
-    }
+   
 
     function get_admins()
     {
@@ -219,5 +243,9 @@ class extensions_m extends CI_Model
 
         return $this->db->where('id',$id)->get('adminregistration')->row_array();
         
+    }
+    function update_departments($data)
+    {
+        return $this->db->insert('depts',$data);
     }
 }

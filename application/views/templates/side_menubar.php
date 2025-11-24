@@ -10,7 +10,12 @@
               <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                 <span>
                 Admin
-                  <span class="user-level"><?php echo $_SESSION['admin_type']; ?></span>  
+                  <span class="user-level"><?php 
+                  if(!empty($_SESSION['admin_type']))
+                      {
+                       echo $_SESSION['admin_type'];
+                      }
+                  ?></span>  
                   <!-- <span class="caret"></span> -->
                 </span>
               </a>
@@ -20,7 +25,7 @@
           </div>
           <ul class="nav nav-primary">
             <li class="nav-item active" >
-              <a  href="<?php echo base_url()?>dashboard/dash" class="collapsed" style="background: green;" aria-expanded="false">
+              <a  href="<?php echo base_url()?>dashboard/index" class="collapsed" style="background: green;" aria-expanded="false">
                 <i class="fas fa-home"></i>
                 <p >Dashboard</p>
                 <!-- <i class="caret"></i> -->
@@ -54,7 +59,11 @@
                       <span class="sub-item">Manage Departments</span>
                     </a>
                   </li>
-                
+                  <li>
+                    <a href="<?php echo base_url()?>dashboard/dash">
+                      <span class="sub-item">Manage Extensions</span>
+                    </a>
+                  </li>
                   <li>
                 </ul>
               </div>

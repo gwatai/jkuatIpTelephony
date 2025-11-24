@@ -1,5 +1,6 @@
-</div>
-</div>
+
+
+
 <footer class="footer" id="footer">
 				<div class="container-fluid">
 					<nav class="pull-left">
@@ -16,10 +17,9 @@
 						 Jkuat (c)  <?php echo date('Y')?>. All Rights Reserved. 
 					</div>				
 				</div>
-			</footer>
-			
-		</div> -->
+		</footer>
 
+		</div>
 
         	<!-- Custom template | don't include it in your project! --> 
 		<div class="custom-template">
@@ -91,8 +91,9 @@
 				<i class="flaticon-settings"></i>
 			</div>
 		</div> 
+		
 	 <!-- End Custom template --> 
-	</div>
+
 
     <!--   Core JS Files   -->
 	
@@ -147,5 +148,7 @@
 	
 	<script src="<?php  echo base_url()?>assets/js/jquery.min.js" ></script>
 	<script src="<?php  echo base_url()?>assets/js/telephony.js"></script>
+
+
 	</body>
 	</html>

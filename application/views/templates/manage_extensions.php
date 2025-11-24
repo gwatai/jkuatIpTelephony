@@ -69,7 +69,8 @@
                     </table>
                     <p class="links" id="links">
 
-                        <?php echo $links; ?></p>
+                        <?php echo $links; ?>
+                    </p>
                 </div>
             </div>
         </div>

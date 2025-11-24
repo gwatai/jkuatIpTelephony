@@ -12,10 +12,34 @@ class Dashboard extends CI_Controller
         parent::__construct();
         $data['page_title'] = 'Dashboard';
         $this->data['base_url'] =  base_url();
+        $_SESSION['base_url'] = base_url();
 
         $this->load->model('extensions_m');
         $this->load->library('pagination');
         $this->load->library('encryption');
+    }
+    public function index()
+    {
+        $this->check_if_is_logged_in();
+        
+       
+        $this->data['title'] = "Dashboard";
+
+        $this->data['extensions'] = $this->extensions_m->get_extensions($config['per_page']=null, $page=null, null);
+
+        $this->data['campuses'] = $this->extensions_m->get_campuses();
+
+    
+        // echo "<pre>";
+        // print_r($this->data);
+        // die();
+
+        $this->load->view('templates/header', $this->data);
+        $this->load->view('templates/header_menu', $this->data);
+        $this->load->view('templates/side_menubar', $this->data);
+        $this->load->view('dashboard', $this->data);
+        $this->load->view('templates/footer', $this->data);
+
     }
 
     public function check_if_is_logged_in()
@@ -29,6 +53,7 @@ class Dashboard extends CI_Controller
     public function dash()
     {
         $this->check_if_is_logged_in();
+        
         $config['base_url'] = base_url() . 'dashboard/dash';
         $config['total_rows'] = $this->extensions_m->get_count();
         $config['per_page'] = 20;
@@ -179,17 +204,27 @@ class Dashboard extends CI_Controller
     }
     public function create_departments()
     {
-        $data['title'] = "create new department";
+
+        $data['title'] = "Create new department";
+
         $data['campuses'] = $this->extensions_m->get_campuses();
 
-        $this->form_validation->set_rules('department', 'department', 'required');
+        $this->form_validation->set_rules('department', 'department', 'required|is_unique[depts.deptname]');
         $this->form_validation->set_rules('campus', 'campus', 'required');
+        $this->form_validation->set_rules('dept_code', 'department code', 'required|is_unique[depts.ccode]');
+        
+            ///
+            ///|is_unique[trialexcel.extnumber]
 
         if ($this->form_validation->run() ===  TRUE) {
+
             $data = [
+
                 'deptname' => $this->input->post('department'),
-                'campus' => $this->input->post('campus'),
+                'ccode' => $this->input->post('campus'),
+                'deptcode' => $this->input->post('dept_code'),
             ];
+
 
             if ($this->extensions_m->update_departments($data)) {
                 redirect('dashboard/dash', 'refresh');
@@ -207,7 +242,7 @@ class Dashboard extends CI_Controller
     }
     public function create_extension()
     {
-        $data['title'] = "create new extensions";
+        $data['title'] = "Create new extensions";
 
        
         $data['campuses'] = $this->extensions_m->get_campuses();
@@ -217,7 +252,7 @@ class Dashboard extends CI_Controller
 
         $this->form_validation->set_rules('department', 'department', 'required');
         $this->form_validation->set_rules('campus', 'campus', 'required');
-        $this->form_validation->set_rules('code', 'code', 'required|is_unique[trialexcel.extnumber]');
+        $this->form_validation->set_rules('ext_number', 'extension Number', 'required|is_unique[trialexcel.extnumber]');
         $this->form_validation->set_rules('assigned', 'assigned', 'required');
 
 
@@ -227,12 +262,16 @@ class Dashboard extends CI_Controller
                 $data = [
                     'deptname' => $this->input->post('department'),
                     'ccode' => $this->input->post('campus'),
-                    'extnumber' => $this->input->post('code'),
+                    'extnumber' => $this->input->post('ext_number'),
                     'owerassigned' => $this->input->post('assigned'),
                 ];
 
                 if ($this->extensions_m->update_telephony($data)) {
                     redirect('dashboard/dash', 'refresh');
+                }
+                else
+                {
+                    redirect('dashboard/create_extension', 'refresh');
                 }
             }
         } else {
@@ -312,7 +351,7 @@ class Dashboard extends CI_Controller
                     'email' => $this->input->post('email'),
                     'adminType' => $this->input->post('admintype'),
                 ];
-            $data['info2'] =
+               $data['info2'] =
                 [
                     'email' => $this->input->post('email'),
                     'username' => $this->input->post('username'),

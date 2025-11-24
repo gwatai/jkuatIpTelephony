@@ -6,9 +6,24 @@
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <link rel="icon" href="<?php echo base_url() ?>assets/img/icon.ico" type="image/x-icon" />
 
+  <style>
+    body {
+  font-size: 2rem;
+}
+  </style>
   <!-- base url -->
   <script type="text/javascript">
-     var base_url = "<?php echo $base_url; ?>";
+
+     var base_url = "<?php if(!empty($_SESSION['base_url']))
+     {
+      
+        echo $_SESSION['base_url'];
+     }
+     else if(!empty($base_url))
+     {
+      echo $base_url;
+     }
+     ?>";
   </script>
 
   <!-- Fonts and icons -->
@@ -40,7 +55,12 @@
   <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
   <script src="<?php echo base_url() ?>assets/js/sweetalert.min.js"></script>
   <script src="<?php echo base_url() ?>assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-  <script src="<?php echo base_url() ?>assets/js/telephony.js"></script>
+  <!-- <script src="<?php //echo base_url() ?>assets/js/telephony.js"></script> -->
+  <style>
+    body {
+  font-size: 16px;
+}
+  </style>
 </head>
 
 <body>
